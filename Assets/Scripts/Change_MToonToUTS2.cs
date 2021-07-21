@@ -39,9 +39,14 @@ namespace VRM
                 "Change_MToonToUTS2", "change");
             var go = Selection.activeObject as GameObject;
             m_Wizard = new GameObject();
-
         }
 
+        public static void ChangeMaterials(GameObject model)
+        {
+            var changeMtoonToUTS2 = CreateInstance<Change_MToonToUTS2>();
+            changeMtoonToUTS2.targetModel = model;
+            changeMtoonToUTS2.OnWizardCreate();
+        }
         void OnWizardCreate()
         {
             SkinnedMeshRenderer[] skinnedMeshRenderers

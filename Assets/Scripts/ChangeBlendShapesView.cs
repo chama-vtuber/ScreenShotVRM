@@ -8,14 +8,12 @@ using VRM;
 public class ChangeBlendShapesView : MonoBehaviour
 {
     [SerializeField] private Transform _contentRoot;
-    [SerializeField] private VRMBlendShapeProxy _vrmBlendShapeProxy;
 
     private List<KeyValuePair<BlendShapeKey, float>> _list = new List<KeyValuePair<BlendShapeKey, float>>();
 
-    public async void Start()
+    public void Initialize(VRMBlendShapeProxy vrmBlendShapeProxy)
     {
-        await UniTask.Yield();
-        var pairs = _vrmBlendShapeProxy.GetValues();
+        var pairs = vrmBlendShapeProxy.GetValues();
         _list = pairs.ToList();
         var cell = Resources.Load<BlendShapeCellView>("Prefabs/BlendShapeCellView");
         foreach (var pair in _list)
@@ -28,7 +26,7 @@ public class ChangeBlendShapesView : MonoBehaviour
                 _list.Remove(target);
                 target = new KeyValuePair<BlendShapeKey, float>(nameAndValue.key, nameAndValue.value);
                 _list.Add(target);
-                _vrmBlendShapeProxy.SetValues(_list);
+                vrmBlendShapeProxy.SetValues(_list);
             });
         }
     }
