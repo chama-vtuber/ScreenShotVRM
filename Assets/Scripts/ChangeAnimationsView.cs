@@ -46,6 +46,10 @@ public class ChangeAnimationsView : MonoBehaviour
         var animationClip =
             Resources.Load<AnimationClip>(_defaultAnimationPath + optionData.text);
         var animatorStateMachine = _animatorController.layers.First().stateMachine;
+        if (animatorStateMachine.states.Any(x => x.state.name == animationClip.name))
+        {
+            return;
+        }
         var state = animatorStateMachine.AddState(animationClip.name);
         state.motion = animationClip;
         animatorStateMachine.defaultState = state;
